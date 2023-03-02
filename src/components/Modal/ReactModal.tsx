@@ -6,7 +6,8 @@ const createWrapperAndAppendToBody = (wrapperId: string) => {
   if (!document) return null;
   const wrapperElement = document.createElement("div");
   wrapperElement.setAttribute("id", wrapperId);
-  document.body.appendChild(wrapperElement);
+  const main = document.getElementById("main");
+  main?.appendChild(wrapperElement);
   return wrapperElement;
 };
 
@@ -20,7 +21,7 @@ function ReactPortal({
   const [wrapperElement, setWrapperElement] = useState<HTMLElement | null>();
 
   useLayoutEffect(() => {
-    let element = document.getElementById(wrapperId);
+    let element = document.getElementById("jorge");
     let systemCreated = false;
 
     if (!element) {

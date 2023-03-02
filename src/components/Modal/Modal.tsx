@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { RxCross2 } from "react-icons/rx";
+
+import ReactPortal from "./ReactModal";
 interface ModalProps {
   children: React.ReactElement;
   isOpen: boolean;
@@ -28,19 +29,14 @@ const Modal = ({ children, isOpen, handleClose }: ModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <>
-      <div className="fixed top-0 left-0 z-40 h-screen w-screen bg-neutral-600 opacity-40">
-        <div className="fixed inset-y-32 box-border flex min-w-fit flex-col overflow-hidden rounded">
-          <button
-            onClick={handleClose}
-            className="seld-end rounded border py-2 px-8 font-bold"
-          >
-            <RxCross2 />
-          </button>
-          <div className="h-5-6 box-border">{children}</div>
+    <ReactPortal wrapperId="react-portal-modal-container">
+      <>
+        <div className="fixed top-0 left-0  h-screen w-screen bg-neutral-200 opacity-50 " />
+        <div className="fixed box-border flex min-w-fit flex-col overflow-hidden rounded">
+          {React.cloneElement(children, { handleClose })}
         </div>
-      </div>
-    </>
+      </>
+    </ReactPortal>
   );
 };
 export default Modal;

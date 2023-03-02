@@ -7,10 +7,14 @@ import ImageUploading from "react-images-uploading";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { motion, AnimatePresence } from "framer-motion";
-const Index = () => {
+
+interface Props {
+  handleClose?: () => void;
+}
+const Index = ({ handleClose }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-explicit-any
   const [images, setImages] = React.useState<any>(null);
-  const [info, setInfo] = useState(true);
+  const [info, setInfo] = useState(false);
   const maxNumber = 5;
 
   const variants = {
@@ -19,7 +23,7 @@ const Index = () => {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onChange = (imageList: any, addUpdatIndex: any) => {
+  const onChange = (imageList: any) => {
     setImages(imageList);
   };
 
@@ -58,7 +62,7 @@ const Index = () => {
   };
 
   return (
-    <div className="grid h-screen w-screen place-content-center rounded-sm ">
+    <div className="grid h-screen w-screen place-content-center rounded-md ">
       <ImageUploading
         multiple
         value={images}
@@ -76,11 +80,11 @@ const Index = () => {
           isDragging,
           dragProps,
         }) => (
-          <div className="h-[550px] w-[500px] bg-white p-2 shadow-lg">
+          <div className="h-[550px] w-[500px] rounded-lg bg-white p-2 shadow-lg">
             <div className="flex w-full items-center justify-between p-3">
               <h3 className="font-medium text-black">Agrega Nuevas Imagenes</h3>
               <p>
-                <RxCross2 size={"25px"} />
+                <RxCross2 size={"25px"} onClick={handleClose} />
               </p>
             </div>
 
@@ -195,7 +199,10 @@ const Index = () => {
               ))}
             </ul>
             <div className=" my-2 flex w-full justify-end space-x-2">
-              <button className="rounded-md border-2 p-1 font-medium shadow-md">
+              <button
+                className="rounded-md border-2 p-1 font-medium shadow-md"
+                onClick={handleClose}
+              >
                 cancelar
               </button>
               <button className=" rounded-md bg-blue-400 p-1 font-medium text-white shadow-md ">

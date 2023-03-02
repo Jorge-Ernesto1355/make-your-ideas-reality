@@ -4,9 +4,13 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Index from "./uploadImages/index";
 import { Inter } from "@next/font/google";
+import { useState } from "react";
+import Modal from "../components/Modal/Modal";
+import Navbar from "../components/Navbar/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 const Home: NextPage = () => {
+  const [confirmationModel, setConfirmationModel] = useState(false);
   return (
     <>
       <Head>
@@ -15,7 +19,15 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <Index></Index>
+        <Navbar />
+        {setConfirmationModel && (
+          <Modal
+            isOpen={confirmationModel}
+            handleClose={() => setConfirmationModel(!confirmationModel)}
+          >
+            <Index></Index>
+          </Modal>
+        )}
       </main>
     </>
   );
